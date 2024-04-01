@@ -1,0 +1,38 @@
+.data
+    #Fib Series: 0, 1, 1, 2, 3, 4, 8, 13.....
+	n1: .word 0
+	n2: .word 1
+	num: .word 3 
+	res: .word 0
+	output_format: .asciiz "%d\n"
+.text
+.globl main
+
+main:
+    # Initialize variables n1, n2, n3, and number
+    lw $t0, n1    # n1 = 0
+    lw $t1, n2     # n2 = 1
+    lw $t3, num     # number = 10
+   
+    # Loop initialization
+    addi $t2,$0, 2     # i = 2
+
+loop:
+    # Check loop condition: i < number  
+    bge $t2, $t3, end_loop
+
+    # n3 = n1 + n2
+    add $t4, $t0, $t1
+
+    # Shift variables: n1 = n2, n2 = n3
+    add $t0, $t1,$0
+    add $t1, $t4,$0
+
+    # Increment i
+    addi $t2, $t2, 1
+
+    # Repeat loop
+    j loop
+
+end_loop:
+	sw $t4, res
